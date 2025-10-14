@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal CID - Prefeitura de Buíque</title>
+    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("{{ url_for('static', filename='imagem/prefeitura.jpg') }}");
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-3">
+                <img src="{{ url_for('static', filename='imagem/prefeitura1.jpg') }}" alt="Prefeitura de Buíque" class="h-12">
+                <h1 class="text-2xl font-bold text-primary">Portal CID</h1>
+            </a>
+            <nav class="hidden md:flex">
+                <ul class="flex items-center space-x-1 md:space-x-4">
+                    <li><a href="/" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Início</a></li>
+                    <li><a href="/sobre" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Sobre o CID</a></li>
+                    <li><a href="/busca" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Busca de CID</a></li>
+                    <li><a href="/identificacao" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Identificação</a></li>
+                    <li><a href="/contato" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-gray-600 hover:text-primary focus:outline-none z-50">
+                    <i data-feather="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+        <div id="mobile-menu" class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+            <nav>
+                <ul class="flex flex-col items-start p-8 space-y-4">
+                    <li class="w-full"><a href="/" class="block py-2 text-lg text-gray-700 hover:text-primary">Início</a></li>
+                    <li class="w-full"><a href="/sobre" class="block py-2 text-lg text-gray-700 hover:text-primary">Sobre o CID</a></li>
+                    <li class="w-full"><a href="/busca" class="block py-2 text-lg text-gray-700 hover:text-primary">Busca de CID</a></li>
+                    <li class="w-full"><a href="/identificacao" class="block py-2 text-lg text-gray-700 hover:text-primary">Identificação</a></li>
+                    <li class="w-full"><a href="/contato" class="block py-2 text-lg text-gray-700 hover:text-primary">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-bg text-white py-20 bg-cover bg-center">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-4xl font-bold mb-4">Bem-vindo ao Portal CID de Buíque</h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">Encontre informações sobre classificações de doenças e transtornos para ajudar no desenvolvimento infantil</p>
+                <div class="space-x-4">
+                    <a href="/busca" class="inline-block bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition">Buscar CID</a>
+                    <a href="/identificacao" class="inline-block bg-secondary text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition">Identificar por Características</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Como o Portal pode ajudar?</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <a href="/busca" class="block bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mb-4"><i data-feather="search"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Busca Rápida</h3>
+                        <p class="text-gray-600">Encontre informações detalhadas sobre qualquer código CID.</p>
+                    </a>
+                    <a href="/sobre" class="block bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mb-4"><i data-feather="book-open"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Guia Completo</h3>
+                        <p class="text-gray-600">Entenda o que é o CID e qual sua importância.</p>
+                    </a>
+                    <a href="/identificacao" class="block bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                        <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center mb-4"><i data-feather="help-circle"></i></div>
+                        <h3 class="text-xl font-semibold mb-2">Identificação</h3>
+                        <p class="text-gray-600">Encontre possíveis CIDs com base em características.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">CIDs em Destaque</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">F84.0</span>
+                            <h3 class="text-xl font-semibold ml-3">Autismo Infantil</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Desenvolvimento anormal ou prejudicado manifestado antes dos três anos.</p>
+                        <a href="/busca?cid_code=F84.0" class="text-primary font-medium hover:underline">Saiba mais</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">F90.0</span>
+                            <h3 class="text-xl font-semibold ml-3">TDAH</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Níveis clinicamente significativos de desatenção, hiperatividade e impulsividade.</p>
+                        <a href="/busca?cid_code=F90.0" class="text-primary font-medium hover:underline">Saiba mais</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">F81.0</span>
+                            <h3 class="text-xl font-semibold ml-3">Dislexia</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Prejuízo específico e significativo no desenvolvimento das habilidades de leitura.</p>
+                        <a href="/busca?cid_code=F81.0" class="text-primary font-medium hover:underline">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Portal CID</h3>
+                    <p class="text-gray-300 text-sm">Uma iniciativa da Prefeitura Municipal de Buíque para auxiliar famílias e profissionais.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Navegação</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-300 hover:text-white">Início</a></li>
+                        <li><a href="/sobre" class="text-gray-300 hover:text-white">Sobre o CID</a></li>
+                        <li><a href="/busca" class="text-gray-300 hover:text-white">Busca de CID</a></li>
+                        <li><a href="/identificacao" class="text-gray-300 hover:text-white">Identificação</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contato</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i data-feather="mail" class="mr-2 w-4"></i> <span>contato@buique.pe.gov.br</span></li>
+                        <li class="flex items-center"><i data-feather="phone" class="mr-2 w-4"></i> <span>(87) 3855-1234</span></li>
+                        <li class="flex items-center"><i data-feather="map-pin" class="mr-2 w-4"></i> <span>Prefeitura de Buíque, PE</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Redes Sociais</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white"><i data-feather="facebook"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i data-feather="instagram"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i data-feather="youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Prefeitura Municipal de Buíque. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- CÓDIGO CORRIGIDO E NA ORDEM CERTA ---
+    
+        // 1. Primeiro, pegamos a referência para todos os nossos elementos.
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        // Esta linha agora encontra o <i> ANTES dele ser substituído pelo SVG.
+        const menuIcon = menuBtn.querySelector('i'); 
+    
+        // 2. Agora que já temos a referência, podemos desenhar os ícones pela primeira vez.
+        feather.replace();
+    
+        // 3. A função para controlar o menu.
+        function toggleMenu() {
+            mobileMenuOverlay.classList.toggle('hidden');
+            mobileMenu.classList.toggle('translate-x-full');
+            
+            // Agora a variável 'menuIcon' não está mais vazia e o código funciona.
+            if (mobileMenu.classList.contains('translate-x-full')) {
+                menuIcon.setAttribute('data-feather', 'menu');
+            } else {
+                menuIcon.setAttribute('data-feather', 'x');
+            }
+            feather.replace(); // Redesenha o ícone após a troca do atributo.
+        }
+    
+        // 4. Adicionamos os "escutadores" de clique.
+        menuBtn.addEventListener('click', toggleMenu);
+        mobileMenuOverlay.addEventListener('click', toggleMenu);
+    </script>
+</body>
+</html>

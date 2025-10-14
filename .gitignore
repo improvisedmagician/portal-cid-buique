@@ -1,0 +1,13 @@
+# Ambiente Virtual
+.venv/
+
+# Arquivos de Cache do Python
+__pycache__/
+*.pyc
+
+# Arquivo de variáveis de ambiente (contém segredos)
+.env
+
+# Banco de dados (pode ser recriado pelo build_database.py)
+# Opcional, mas recomendado não versionar o DB em si.
+*.db

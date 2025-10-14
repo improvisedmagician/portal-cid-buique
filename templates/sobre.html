@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre o CID - Portal CID Buíque</title>
+    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans bg-gray-50">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-3">
+                <img src="{{ url_for('static', filename='imagem/prefeitura1.jpg') }}" alt="Prefeitura de Buíque" class="h-12">
+                <h1 class="text-2xl font-bold text-primary">Portal CID</h1>
+            </a>
+            <nav class="hidden md:flex">
+                <ul class="flex items-center space-x-1 md:space-x-4">
+                    <li><a href="/" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Início</a></li>
+                    <li><a href="/sobre" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Sobre o CID</a></li>
+                    <li><a href="/busca" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Busca de CID</a></li>
+                    <li><a href="/identificacao" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Identificação</a></li>
+                    <li><a href="/contato" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-gray-600 hover:text-primary focus:outline-none z-50">
+                    <i data-feather="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+        <div id="mobile-menu" class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+            <nav>
+                <ul class="flex flex-col items-start p-8 space-y-4">
+                    <li class="w-full"><a href="/" class="block py-2 text-lg text-gray-700 hover:text-primary">Início</a></li>
+                    <li class="w-full"><a href="/sobre" class="block py-2 text-lg text-gray-700 hover:text-primary">Sobre o CID</a></li>
+                    <li class="w-full"><a href="/busca" class="block py-2 text-lg text-gray-700 hover:text-primary">Busca de CID</a></li>
+                    <li class="w-full"><a href="/identificacao" class="block py-2 text-lg text-gray-700 hover:text-primary">Identificação</a></li>
+                    <li class="w-full"><a href="/contato" class="block py-2 text-lg text-gray-700 hover:text-primary">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Sobre a Classificação Internacional de Doenças (CID)</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+            </div>
+
+            <div class="bg-white p-8 rounded-lg shadow-sm mb-8">
+                <h3 class="text-2xl font-semibold mb-4 text-primary">O que é o CID?</h3>
+                <p class="text-gray-700 mb-6">A Classificação Internacional de Doenças e Problemas Relacionados à Saúde (CID) é um sistema de códigos criado pela Organização Mundial da Saúde (OMS) para padronizar a classificação e notificação de doenças, transtornos, condições de saúde e causas externas de lesões ou doenças.</p>
+                <p class="text-gray-700">A CID é a base para estatísticas de saúde em todo o mundo, sendo essencial para o monitoramento de tendências de saúde, planejamento de serviços e pesquisa.</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-lg shadow-sm mb-8">
+                <h3 class="text-2xl font-semibold mb-4 text-primary">Uso do CID em Crianças Atípicas</h3>
+                <p class="text-gray-700 mb-6">A classificação CID é especialmente importante para crianças com desenvolvimento atípico, pois:</p>
+                <ul class="list-disc pl-5 space-y-2 mb-6">
+                    <li class="text-gray-700">Permite a identificação precisa de transtornos do desenvolvimento.</li>
+                    <li class="text-gray-700">Facilita a comunicação entre profissionais de saúde, educação e familiares.</li>
+                    <li class="text-gray-700">É fundamental para acesso a serviços especializados e políticas públicas.</li>
+                    <li class="text-gray-700">Ajuda no planejamento de intervenções e terapias adequadas.</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white p-8 rounded-lg shadow-sm mb-8">
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                    <p class="text-gray-700"><strong>Atenção:</strong> O CID é uma ferramenta de classificação, não um diagnóstico. O diagnóstico deve sempre ser realizado por profissionais qualificados com base em avaliação clínica completa.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Portal CID</h3>
+                    <p class="text-gray-300 text-sm">Uma iniciativa da Prefeitura Municipal de Buíque para auxiliar famílias e profissionais.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Navegação</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-300 hover:text-white">Início</a></li>
+                        <li><a href="/sobre" class="text-gray-300 hover:text-white">Sobre o CID</a></li>
+                        <li><a href="/busca" class="text-gray-300 hover:text-white">Busca de CID</a></li>
+                        <li><a href="/identificacao" class="text-gray-300 hover:text-white">Identificação</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contato</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i data-feather="mail" class="mr-2 w-4"></i> <span>contato@buique.pe.gov.br</span></li>
+                        <li class="flex items-center"><i data-feather="phone" class="mr-2 w-4"></i> <span>(87) 3855-1234</span></li>
+                        <li class="flex items-center"><i data-feather="map-pin" class="mr-2 w-4"></i> <span>Prefeitura de Buíque, PE</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Redes Sociais</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white"><i data-feather="facebook"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i data-feather="instagram"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i data-feather="youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Prefeitura Municipal de Buíque. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const menuIcon = menuBtn.querySelector('i');
+        function toggleMenu() {
+            mobileMenuOverlay.classList.toggle('hidden');
+            mobileMenu.classList.toggle('translate-x-full');
+            if (mobileMenu.classList.contains('translate-x-full')) {
+                menuIcon.setAttribute('data-feather', 'menu');
+            } else {
+                menuIcon.setAttribute('data-feather', 'x');
+            }
+            feather.replace();
+        }
+        menuBtn.addEventListener('click', toggleMenu);
+        mobileMenuOverlay.addEventListener('click', toggleMenu);
+    </script>
+</body>
+</html>
