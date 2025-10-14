@@ -1,8 +1,71 @@
 import sqlite3
+import csv
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
 from flask import Flask, render_template, request
+
+# ==============================================================================
+# FUNÇÃO PARA INICIALIZAR O BANCO DE DADOS (A PARTE QUE FALTAVA)
+# ==============================================================================
+def init_db():
+    # Verifica se o arquivo do banco de dados já existe.
+    if os.path.exists('portal.db'):
+        print("Banco de dados 'portal.db' já existe. Nenhuma ação necessária.")
+        return
+
+    print("Banco de dados 'portal.db' não encontrado. Criando e populando...")
+    
+    tags_map = {
+        "F84.0": "nao_responde_nome,repete_frases,nao_faz_contato_visual,prefere_brincar_sozinho,movimentos_repetitivos,interesses_restritos,sensibilidade_sensorial",
+        "F84.5": "linguagem_inapropriada,interesses_restritos,dificuldade_aprendizado,nao_faz_contato_visual",
+        "F90.0": "dificuldade_aprendizado,hiperatividade_impulsividade,desatencao,crises_birra_intensas",
+        "F80.1": "dificuldade_fala,linguagem_inapropriada,dificuldade_aprendizado",
+        "F80.2": "dificuldade_fala,nao_responde_nome,dificuldade_aprendizado",
+        "F81.0": "dificuldade_aprendizado,desatencao",
+        "F81.2": "dificuldade_aprendizado,desatencao",
+        "F70": "dificuldade_aprendizado,dificuldade_fala",
+        "F95.2": "movimentos_repetitivos,hiperatividade_impulsividade",
+        "F93.0": "crises_birra_intensas,prefere_brincar_sozinho",
+        "F98.5": "dificuldade_fala"
+    }
+
+    conn = sqlite3.connect('portal.db')
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+    CREATE TABLE cids (
+        codigo TEXT PRIMARY KEY, nome TEXT NOT NULL, descricao TEXT, capitulo TEXT, tags TEXT
+    )""")
+    
+    cursor.execute("""
+    CREATE TABLE cache (
+        cid_codigo TEXT PRIMARY KEY, resposta_ia TEXT NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    )""")
+    
+    # Este 'if' garante que o código não quebre se o cid10_data.csv não for encontrado.
+    if os.path.exists('cid10_data.csv'):
+        with open('cid10_data.csv', 'r', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            next(reader)
+            for row in reader:
+                codigo, nome, descricao = row
+                tags = tags_map.get(codigo, "")
+                cursor.execute(
+                    "INSERT INTO cids (codigo, nome, descricao, capitulo, tags) VALUES (?, ?, ?, ?, ?)",
+                    (codigo, nome, descricao, "Capítulo V (F)", tags)
+                )
+    
+    conn.commit()
+    conn.close()
+    print("Banco de dados criado com sucesso.")
+
+# ==============================================================================
+# INÍCIO DO APLICATIVO FLASK
+# ==============================================================================
+
+# Executa a função de inicialização do DB ANTES de iniciar o site
+init_db()
 
 load_dotenv()
 app = Flask(__name__)
@@ -22,6 +85,8 @@ def get_db_connection():
     conn = sqlite3.connect('portal.db')
     conn.row_factory = sqlite3.Row
     return conn
+
+# --- O RESTO DO SEU CÓDIGO (ROTAS) CONTINUA IGUAL ---
 
 @app.route('/')
 def home():
@@ -52,35 +117,31 @@ def busca():
             if cached_response:
                 print(f"Resposta para {codigo_buscado} encontrada no CACHE.")
                 informacao_ia = cached_response['resposta_ia']
-            elif model: # Só tenta chamar a IA se o modelo foi configurado com sucesso
+            elif model:
                 print(f"Resposta para {codigo_buscado} não encontrada no cache. Chamando a API...")
                 try:
                     prompt = f"""
                     Atue como um especialista em desenvolvimento infantil e saúde mental, explicando o CID abaixo para pais e cuidadores.
-                    Instrução Principal: Vá direto para a resposta, começando diretamente com a seção "Explicação Simplificada". Não inclua nenhuma frase de introdução, preâmbulo ou saudação. Não use formatação markdown.
+                    Instrução Principal: Vá direto para a resposta, começando diretamente com a seção "Explicação Simplificada". Não inclua nenhuma frase de introdução. Não use formatação markdown.
                     Dados do CID:
                     - Código: {resultado_encontrado['codigo']}
                     - Nome: {resultado_encontrado['nome']}
                     - Descrição Oficial: {resultado_encontrado['descricao']}
                     Seções Requeridas:
-                    1. Explicação Simplificada: O que este código significa em termos práticos para o dia a dia da criança?
-                    2. Principais Sinais e Características: Quais são os comportamentos ou desafios mais comuns que os pais podem observar?
-                    3. Primeiros Passos e Sugestões: O que os pais podem fazer após receber este diagnóstico?
+                    1. Explicação Simplificada.
+                    2. Principais Sinais e Características.
+                    3. Primeiros Passos e Sugestões.
                     """
-                    
                     response = model.generate_content(prompt)
                     informacao_ia = response.text
-
                     conn.execute('INSERT INTO cache (cid_codigo, resposta_ia) VALUES (?, ?)', (codigo_buscado, informacao_ia))
                     conn.commit()
                     print(f"Resposta para {codigo_buscado} salva no cache.")
-
                 except Exception as e:
                     print(f"Erro ao chamar a API do Gemini: {e}")
                     informacao_ia = "Não foi possível carregar informações adicionais da IA neste momento."
             else:
                 informacao_ia = "A integração com a IA não está configurada corretamente."
-        
         conn.close()
                 
     return render_template('busca.html', resultado=resultado_encontrado, busca=codigo_buscado, informacao_ia=informacao_ia)
@@ -89,14 +150,11 @@ def busca():
 def identificacao():
     if request.method == 'POST':
         caracteristicas_selecionadas = request.form.getlist('caracteristicas')
-        
         if not caracteristicas_selecionadas:
             return render_template('identificacao.html', resultados=None)
-
         conn = get_db_connection()
         todos_os_cids = conn.execute("SELECT * FROM cids WHERE tags IS NOT NULL AND tags != ''").fetchall()
         conn.close()
-
         resultados = []
         for cid in todos_os_cids:
             tags_do_cid = cid['tags'].split(',')
@@ -104,14 +162,10 @@ def identificacao():
             for tag in tags_do_cid:
                 if tag.strip() in caracteristicas_selecionadas:
                     pontuacao += 1
-            
             if pontuacao > 0:
                 resultados.append({'cid': cid, 'pontuacao': pontuacao})
-        
         resultados_ordenados = sorted(resultados, key=lambda x: x['pontuacao'], reverse=True)
-        
         return render_template('identificacao.html', resultados=resultados_ordenados)
-
     return render_template('identificacao.html', resultados=None)
 
 @app.route('/contato', methods=['GET', 'POST'])
@@ -122,8 +176,8 @@ def contato():
         mensagem = request.form.get('message')
         print(f"Mensagem Recebida de {nome} ({email}): {mensagem}")
         return render_template('sucesso.html')
-    
     return render_template('contato.html')
+
 
 if __name__ == '__main__':
     from waitress import serve
