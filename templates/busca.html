@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Busca de CID - Portal CID Buíque</title>
+    
     <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
+    
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-    
-<body class="font-sans bg-gray-50">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans bg-gray-50 text-gray-800">
 
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -18,15 +21,32 @@
                 <img src="{{ url_for('static', filename='imagem/prefeitura1.jpg') }}" alt="Prefeitura de Buíque" class="h-12">
                 <h1 class="text-2xl font-bold text-primary">Portal CID</h1>
             </a>
+            
             <nav class="hidden md:flex">
                 <ul class="flex items-center space-x-1 md:space-x-4">
-                    <li><a href="/" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Início</a></li>
-                    <li><a href="/sobre" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Sobre o CID</a></li>
-                    <li><a href="/busca" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Busca de CID</a></li>
-                    <li><a href="/identificacao" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Identificação</a></li>
-                    <li><a href="/contato" class="px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Contato</a></li>
+                    <li class="group">
+                        <a href="/" class="px-3 py-2 rounded-md font-medium text-gray-700 group-hover:text-primary transition-colors">Início</a>
+                        <span class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
+                    </li>
+                    <li class="group">
+                        <a href="/sobre" class="px-3 py-2 rounded-md font-medium text-gray-700 group-hover:text-primary transition-colors">Sobre o CID</a>
+                        <span class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
+                    </li>
+                    <li class="group">
+                        <a href="/busca" class="px-3 py-2 rounded-md font-medium text-gray-700 group-hover:text-primary transition-colors">Busca de CID</a>
+                        <span class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
+                    </li>
+                    <li class="group">
+                        <a href="/identificacao" class="px-3 py-2 rounded-md font-medium text-gray-700 group-hover:text-primary transition-colors">Identificação</a>
+                        <span class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
+                    </li>
+                    <li class="group">
+                        <a href="/contato" class="px-3 py-2 rounded-md font-medium text-gray-700 group-hover:text-primary transition-colors">Contato</a>
+                        <span class="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-primary"></span>
+                    </li>
                 </ul>
             </nav>
+
             <div class="md:hidden">
                 <button id="menu-btn" class="text-gray-600 hover:text-primary focus:outline-none z-50">
                     <i data-feather="menu" class="w-6 h-6"></i>
@@ -56,36 +76,21 @@
             </div>
 
             <div class="bg-white p-8 rounded-lg shadow-sm mb-8">
-                <form method="POST" action="/busca" class="form-search">
-                    <input
-                      type="text"
-                      id="cid-search"
-                      name="cid_code"
-                      placeholder="Digite o código CID (ex: F84.0)"
-                      value="{{ busca if busca else '' }}"
-                    >
-                    <button type="submit">
-                      <i data-feather="search"></i>
-                    </button>
-                  </form>
-                  
-                  <script src="https://unpkg.com/feather-icons"></script>
-                  <script>feather.replace();</script>
-                  
+                <form method="POST" action="/busca">
+                    <div class="relative">
+                        <input type="text" name="cid_code" value="{{ busca if busca else '' }}" placeholder="Digite o código CID (ex: F84.0)" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition pr-10">
+                        <button type="submit" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-primary">
+                            <i data-feather="search"></i>
+                        </button>
+                    </div>
+                </form>
 
-
-                
-                
-               
-                
-                
-                
-            
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <span class="text-sm font-medium text-gray-600 self-center">Sugestões:</span>
-                    <a href="/busca?cid_code=F84.0" class="text-sm bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full transition">F84.0 (Autismo)</a>
-                    <a href="/busca?cid_code=F90.0" class="text-sm bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full transition">F90.0 (TDAH)</a>
-                    <a href="/busca?cid_code=F81.0" class="text-sm bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full transition">F81.0 (Dislexia)</a>
+                <div class="flex flex-col sm:flex-row sm:items-center flex-wrap gap-x-3 gap-y-2 mt-4">
+                    <span class="text-sm font-medium text-gray-500 mb-2 sm:mb-0">Sugestões:</span>
+                    <a href="/busca?cid_code=F84.0" class="text-sm font-medium bg-blue-100 text-blue-700 px-3 py-1 rounded-full whitespace-nowrap hover:bg-blue-200 hover:shadow-sm transform hover:-translate-y-px transition-all duration-200">F84.0 (Autismo)</a>
+                    <a href="/busca?cid_code=F90.0" class="text-sm font-medium bg-blue-100 text-blue-700 px-3 py-1 rounded-full whitespace-nowrap hover:bg-blue-200 hover:shadow-sm transform hover:-translate-y-px transition-all duration-200">F90.0 (TDAH)</a>
+                    <a href="/busca?cid_code=F81.0" class="text-sm font-medium bg-blue-100 text-blue-700 px-3 py-1 rounded-full whitespace-nowrap hover:bg-blue-200 hover:shadow-sm transform hover:-translate-y-px transition-all duration-200">F81.0 (Dislexia)</a>
+                    <a href="/busca?cid_code=F80.1" class="text-sm font-medium bg-blue-100 text-blue-700 px-3 py-1 rounded-full whitespace-nowrap hover:bg-blue-200 hover:shadow-sm transform hover:-translate-y-px transition-all duration-200">F80.1 (Transtorno da Linguagem)</a>
                 </div>
             </div>
 
@@ -137,12 +142,15 @@
         </div>
     </main>
     
-    <footer class="bg-gray-800 text-white py-12 mt-8">
+    <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Portal CID</h3>
-                    <p class="text-gray-300 text-sm">Uma iniciativa da Prefeitura Municipal de Buíque.</p>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="{{ url_for('static', filename='imagem/prefeitura1.jpg') }}" alt="Brasão de Buíque" class="h-16 bg-white p-1 rounded-md">
+                        <h3 class="text-xl font-bold">Portal CID</h3>
+                    </div>
+                    <p class="text-gray-300 text-sm">Uma iniciativa da Prefeitura Municipal de Buíque para auxiliar famílias e profissionais.</p>
                 </div>
                 <div>
                     <h4 class="font-semibold mb-4">Navegação</h4>
@@ -171,20 +179,26 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 Prefeitura Municipal de Buíque. Todos os direitos reservados.</p>
-            </div>
+                <p class="leading-relaxed">
+                    &copy; 2025 Prefeitura Municipal de Buíque. Todos os direitos reservados.<br>
+                    <span class="font-semibold text-white">Desenvolvido por HIGOR FERNANDO F. DE CARVALHO</span>
+                </p>
+                </div>
         </div>
     </footer>
 
     <script>
-        feather.replace();
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-        const menuIcon = menuBtn.querySelector('i');
+        const menuIcon = menuBtn.querySelector('i'); 
+
+        feather.replace();
+    
         function toggleMenu() {
             mobileMenuOverlay.classList.toggle('hidden');
             mobileMenu.classList.toggle('translate-x-full');
+            
             if (mobileMenu.classList.contains('translate-x-full')) {
                 menuIcon.setAttribute('data-feather', 'menu');
             } else {
@@ -192,6 +206,7 @@
             }
             feather.replace();
         }
+    
         menuBtn.addEventListener('click', toggleMenu);
         mobileMenuOverlay.addEventListener('click', toggleMenu);
     </script>

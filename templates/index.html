@@ -124,7 +124,10 @@
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Portal CID</h3>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="{{ url_for('static', filename='imagem/prefeitura1.jpg') }}" alt="Brasão de Buíque" class="h-16 bg-white p-1 rounded-md">
+                        <h3 class="text-xl font-bold">Portal CID</h3>
+                    </div>
                     <p class="text-gray-300 text-sm">Uma iniciativa da Prefeitura Municipal de Buíque para auxiliar famílias e profissionais.</p>
                 </div>
                 <div>
@@ -154,10 +157,15 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 Prefeitura Municipal de Buíque. Todos os direitos reservados.</p>
-            </div>
+                <p class="leading-relaxed">
+                    &copy; 2025 Prefeitura Municipal de Buíque. Todos os direitos reservados.<br>
+                    <span class="font-semibold text-white">Desenvolvido por HIGOR FERNANDO F. DE CARVALHO</span>
+                </p>
+                </div>
         </div>
     </footer>
+
+
 
     <script>
         // --- CÓDIGO CORRIGIDO E NA ORDEM CERTA ---
