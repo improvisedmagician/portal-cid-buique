@@ -16,6 +16,28 @@
     </style>
 </head>
 <body class="font-sans bg-gray-50">
+    <div id="test-notification" style="position: fixed; top: 0; left: 0; width: 100%; background-color: #fefcbf; color: #854d0e; padding: 1rem; text-align: center; z-index: 1000; display: flex; justify-content: center; align-items: center; border-bottom: 2px solid #facc15; font-size: 0.9rem;">
+        <p style="margin: 0; flex-grow: 1;">
+            <strong>Aviso:</strong> Este é um site de demonstração e está em fase de testes. Algumas funcionalidades podem não estar completas.
+        </p>
+        <button id="close-notification" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #854d0e; padding: 0 0.5rem; line-height: 1; margin-left: 1rem;">
+            &times;
+        </button>
+    </div>
+    
+    <script>
+        // Este script garante que o botão de fechar funcione
+        document.addEventListener('DOMContentLoaded', function() {
+            const notificationBanner = document.getElementById('test-notification');
+            const closeButton = document.getElementById('close-notification');
+    
+            if (closeButton && notificationBanner) {
+                closeButton.addEventListener('click', function() {
+                    notificationBanner.style.display = 'none';
+                });
+            }
+        });
+    </script>
 
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
