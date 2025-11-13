@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request
 
 # ==============================================================================
-# FUNÇÃO PARA INICIALIZAR O BANCO DE DADOS (A PARTE QUE FALTAVA)
+# FUNÇÃO PARA INICIALIZAR O BANCO DE DADOS (A PARTE QUE FALTA)
 # ==============================================================================
 def init_db():
     # Verifica se o arquivo do banco de dados já existe.
